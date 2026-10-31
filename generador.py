@@ -1,5 +1,7 @@
 import random
 
+from portales import colocar_portales
+
 DIRECCIONES = ((-1, 0), (1, 0), (0, -1), (0, 1))  # arriba, abajo, izquierda, derecha
 
 
@@ -24,10 +26,12 @@ def probar_direccion(lab, f, c, orden, i):
         lab[f + df][c + dc] = "L"
         excavar(lab, nf, nc)
     probar_direccion(lab, f, c, orden, i + 1)
-def generar_laberinto(n, m, seed):
+def generar_laberinto(n, m, seed, num_portales=3):
     random.seed(seed)
     lab = crear_matriz(2 * n + 1, 2 * m + 1)
     excavar(lab, 1, 1)
     lab[1][1] = "S"
     lab[2 * n - 1][2 * m - 1] = "E"
+    print("\nPortales generados:")
+    colocar_portales(lab, num_portales)
     return lab
