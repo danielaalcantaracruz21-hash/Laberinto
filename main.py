@@ -3,7 +3,8 @@ import random
 import sys
 import threading
 from generador import generar_laberinto
-from pantalla import imprimir, pedir_entero
+from pantalla import imprimir, imprimir_leyenda, pedir_entero
+from resolver import INF, resolver
 def main():
     os.system("")  
     print("=== LABERINTO CON PORTALES ===")
@@ -17,6 +18,16 @@ def main():
 
     print("\nLaberinto generado:")
     imprimir(lab)
+
+    mejor = resolver(lab, 1, 1, 0, INF, False)    
+    if mejor == INF:
+        print("\nNo existe camino de S a E.")
+        return
+    resolver(lab, 1, 1, 0, mejor + 1, True)    
+
+    print(f"\nCamino mas corto: {mejor} pasos")
+    imprimir(lab)
+    imprimir_leyenda()
 
 
 if __name__ == "__main__":
